@@ -44,6 +44,8 @@ namespace Troopeona
 
         private static Items.Item hextech;
 
+        private static Items.Item Randuins;
+
         private static Obj_AI_Base target;
 
         private static void Main(string[] args)
@@ -55,7 +57,7 @@ namespace Troopeona
         {
             if (Player.ChampionName != "Leona") return;
 
-            Q = new Spell(SpellSlot.Q, 120f);
+            Q = new Spell(SpellSlot.Q, 180f);
             W = new Spell(SpellSlot.W);
             E = new Spell(SpellSlot.E, 875f);
             E.SetSkillshot(0.25f, 100f, 2000f, false, SkillshotType.SkillshotLine);
@@ -85,6 +87,7 @@ namespace Troopeona
             cutlass = new Items.Item(3144, 450);
             botrk = new Items.Item(3153, 450);
             hextech = new Items.Item(3146, 700);
+            Randuins = new Items.Item(3143, 500);
             Menu.AddToMainMenu();
 
             Game.OnUpdate += OnUpdate;
@@ -94,10 +97,6 @@ namespace Troopeona
 
         private static void OnUpdate(EventArgs args)
         {
-            if (Menu.Item("useR").GetValue<bool>())
-            {
-                Killsecure();
-            }
             if (Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Combo)
             {
                 Combo();
@@ -118,7 +117,7 @@ namespace Troopeona
             var useE = (Menu.Item("useE").GetValue<bool>());
             var useQ = (Menu.Item("useQ").GetValue<bool>());
             var useW = (Menu.Item("useW").GetValue<bool>());
-            var m = TargetSelector.GetTarget(W.Range, TargetSelector.DamageType.Magical);
+            var m = TargetSelector.GetTarget(E.Range, TargetSelector.DamageType.Magical);
             var useR = (Menu.Item("useR").GetValue<bool>());
 
 
@@ -136,47 +135,40 @@ namespace Troopeona
             {
                 hextech.Cast(m);
             }
+            if (m != null && Player.Distance(m) <= Randuins.Range)
+            {
+                Randuins.Cast();
+            }
+
             //combo
-            if (useE && (E.IsReady()))
+            if (useW && E.IsReady() && W.IsReady())
+            {
+            if (Player.Distance(m.Position) < E.Range) W.Cast();
+            }
+            if (useE && E.IsReady())
             {
                 E.Cast(m);
             }
-            if (useQ && Q.IsReady())
-            {
-                Q.CastOnBestTarget();
-            }
-            if (useW && W.IsReady())
-            {
-                W.CastOnBestTarget();       
-            }
-            if (useR && R.IsReady())
+            if (useR && R.IsReady() && !E.IsReady())
             {
                 R.CastOnBestTarget();
             }
         }
 
-        private static void Killsecure()
-        {
-            var useR = (Menu.Item("useQ").GetValue<bool>());
-            var m = TargetSelector.GetTarget(W.Range, TargetSelector.DamageType.Magical);
-            {
-                Q.CastOnUnit(m);
-            }
-        }
-
         private static void Harass()
         {
-            var o = TargetSelector.GetTarget(W.Range, TargetSelector.DamageType.Physical);
-            if (Menu.Item("harassW").GetValue<bool>())
+            var o = TargetSelector.GetTarget(W.Range, TargetSelector.DamageType.Magical);
+            if (Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Mixed)
+            if (Menu.Item("harassQ").GetValue<bool>())
             {
                 if (Player.Distance(o.Position) > 125 && (Q.IsReady()))
                 {
-                    W.Cast(o);
+                    Q.Cast(o);
                 }
             }
-            if (Menu.Item("harassQ").GetValue<bool>())
+            if (Menu.Item("harassW").GetValue<bool>())
             {
-                Q.CastIfHitchanceEquals(target, HitChance.High);
+                W.Cast();
             }
         }
 
@@ -184,7 +176,7 @@ namespace Troopeona
         {
             if (Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Combo)
             {
-                var useQ = (Menu.Item("useQ").GetValue<bool>());
+                if (Menu.Item("useQ").GetValue<bool>() && Q.IsReady());
                 Q.CastOnBestTarget();
             }
         }
