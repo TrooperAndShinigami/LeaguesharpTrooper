@@ -87,7 +87,7 @@ namespace Trookali
             Menu.AddSubMenu(new Menu("Ks Menu", "KS Menu"));
             Menu.SubMenu("KS Menu").AddItem(new MenuItem("useRks", "use R to Ks").SetValue(true));
             //Credits
-            Menu.AddItem(new MenuItem("Credits", "Done by trooperhdx"));
+            Menu.AddItem(new MenuItem("Credits", "Assembly created by trooperhdx"));
 
 
 
