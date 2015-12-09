@@ -56,7 +56,7 @@ namespace Troopeona
             if (Player.ChampionName != "Leona") return;
 
             Q = new Spell(SpellSlot.Q, 120f);
-            W = new Spell(SpellSlot.W, 450f);
+            W = new Spell(SpellSlot.W);
             E = new Spell(SpellSlot.E, 875f);
             E.SetSkillshot(0.25f, 100f, 2000f, false, SkillshotType.SkillshotLine);
             R = new Spell(SpellSlot.R, 1200f);
@@ -88,6 +88,7 @@ namespace Troopeona
             Menu.AddToMainMenu();
 
             Game.OnUpdate += OnUpdate;
+            Orbwalking.AfterAttack += AfterAa;
             Game.PrintChat("Leona , featuring Troopeona , whitch is like the worst name ever");
         }
 
@@ -115,17 +116,11 @@ namespace Troopeona
         private static void Combo()
         {
             var useE = (Menu.Item("useE").GetValue<bool>());
-            E.CastOnBestTarget();
-
             var useQ = (Menu.Item("useQ").GetValue<bool>());
-            Q.CastOnBestTarget();
-
             var useW = (Menu.Item("useW").GetValue<bool>());
             var m = TargetSelector.GetTarget(W.Range, TargetSelector.DamageType.Magical);
-            W.CastOnBestTarget();
-
             var useR = (Menu.Item("useR").GetValue<bool>());
-            R.CastOnBestTarget();
+
 
 
             //Itemusage
@@ -142,13 +137,21 @@ namespace Troopeona
                 hextech.Cast(m);
             }
             //combo
-            if (useQ && (Q.IsReady()))
+            if (useE && (E.IsReady()))
             {
-                Q.Cast(m);
+                E.Cast(m);
+            }
+            if (useQ && Q.IsReady())
+            {
+                Q.CastOnBestTarget();
             }
             if (useW && W.IsReady())
             {
-                W.CastOnBestTarget();
+                W.CastOnBestTarget();       
+            }
+            if (useR && R.IsReady())
+            {
+                R.CastOnBestTarget();
             }
         }
 
@@ -174,6 +177,15 @@ namespace Troopeona
             if (Menu.Item("harassQ").GetValue<bool>())
             {
                 Q.CastIfHitchanceEquals(target, HitChance.High);
+            }
+        }
+
+        private static void AfterAa(AttackableUnit unit, AttackableUnit attackableUnit)
+        {
+            if (Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Combo)
+            {
+                var useQ = (Menu.Item("useQ").GetValue<bool>());
+                Q.CastOnBestTarget();
             }
         }
 
