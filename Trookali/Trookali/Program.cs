@@ -74,7 +74,6 @@ namespace Trookali
             harass.AddItem(new MenuItem("harassQ", "Use Q to harass").SetValue(true));
             //LaneClear Menu
             Menu.AddSubMenu(new Menu("Laneclear", "laneclear"));
-            Menu.SubMenu("laneclear").AddItem(new MenuItem("laneQ", "use Q to Laneclear").SetValue(true));
             Menu.SubMenu("laneclear").AddItem(new MenuItem("laneE", "use E to Laneclear").SetValue(true));
             //Drawings
             Menu.AddSubMenu(new Menu("Drawings", "Drawings"));
