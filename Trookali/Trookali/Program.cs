@@ -75,6 +75,8 @@ namespace Trookali
             //LaneClear Menu
             Menu.AddSubMenu(new Menu("Laneclear", "laneclear"));
             Menu.SubMenu("laneclear").AddItem(new MenuItem("laneE", "use E to Laneclear").SetValue(true));
+            Menu.SubMenu("laneclear")
+                .AddItem(new MenuItem("Laneclear Energy", " % Energy").SetValue(new Slider(10, 50, 0)));
             //Drawings
             Menu.AddSubMenu(new Menu("Drawings", "Drawings"));
             Menu.SubMenu("Drawings").AddItem(new MenuItem("Draw_Disabled", "Disable all Drawings").SetValue(false));
@@ -87,6 +89,10 @@ namespace Trookali
             Menu.SubMenu("KS Menu").AddItem(new MenuItem("useRks", "use R to Ks").SetValue(true));
             //Credits
             Menu.AddItem(new MenuItem("Credits", "Assembly created by trooperhdx"));
+            //Jungleclear
+            var jungle = new Menu("JungleClear", "JungleClear");
+            Menu.AddSubMenu(jungle);
+            jungle.AddItem(new MenuItem("jungleclearE", "Use E to JungleClear").SetValue(true));
 
 
 
@@ -109,17 +115,12 @@ namespace Trookali
         private static void OnDraw(EventArgs args)
         {
             var Target = TargetSelector.GetTarget(R.Range, TargetSelector.DamageType.Physical);
-            if (Menu.Item("Draw_Disabled").GetValue<bool>())
-                return;
+            if (Menu.Item("Draw_Disabled").GetValue<bool>()) return;
 
-            if (Menu.Item("Qdraw").GetValue<bool>())
-                Render.Circle.DrawCircle(Player.Position, Q.Range, System.Drawing.Color.CadetBlue, 3);
-            if (Menu.Item("Wdraw").GetValue<bool>())
-                Render.Circle.DrawCircle(Player.Position, W.Range, System.Drawing.Color.IndianRed, 3);
-            if (Menu.Item("Edraw").GetValue<bool>())
-                Render.Circle.DrawCircle(Player.Position, E.Range, System.Drawing.Color.DarkSeaGreen, 3);
-            if (Menu.Item("Rdraw").GetValue<bool>())
-                Render.Circle.DrawCircle(Player.Position, R.Range, System.Drawing.Color.BurlyWood, 3);
+            if (Menu.Item("Qdraw").GetValue<bool>()) Render.Circle.DrawCircle(Player.Position, Q.Range, System.Drawing.Color.CadetBlue, 3);
+            if (Menu.Item("Wdraw").GetValue<bool>()) Render.Circle.DrawCircle(Player.Position, W.Range, System.Drawing.Color.IndianRed, 3);
+            if (Menu.Item("Edraw").GetValue<bool>()) Render.Circle.DrawCircle(Player.Position, E.Range, System.Drawing.Color.DarkSeaGreen, 3);
+            if (Menu.Item("Rdraw").GetValue<bool>()) Render.Circle.DrawCircle(Player.Position, R.Range, System.Drawing.Color.BurlyWood, 3);
         }
 
         private static void OnUpdate(EventArgs args)
@@ -139,6 +140,7 @@ namespace Trookali
             if (Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.LaneClear)
             {
                 Lane();
+                Jungle();
             }
         }
 
@@ -200,6 +202,7 @@ namespace Trookali
                     {
                         Q.CastOnBestTarget();
                     }
+
                 }
         }
 
@@ -215,16 +218,43 @@ namespace Trookali
 
         private static void Lane()
         {
-            var allMinions = MinionManager.GetMinions(ObjectManager.Player.ServerPosition, 250f);
+            var laneE = Menu.Item("Laneclear Energy").GetValue<Slider>().Value;
+            var allMinions = MinionManager.GetMinions(ObjectManager.Player.ServerPosition, 290f);
+            var minions = MinionManager.GetMinions(Player.ServerPosition, E.Range);
+            if (minions.Count <= 2) return;
             {
-                if (Menu.Item("laneE").GetValue<bool>() && E.IsReady())
+                if (E.IsReady() && Q.IsReady())
                 {
-                    foreach (var minion in allMinions)
+                    if (
+                        allMinions.Any(
+                            minion =>
+                            minion.IsValidTarget(E.Range)
+                            && minion.Health < 0.80 * Player.GetSpellDamage(minion, SpellSlot.E)
+                            && minion.IsValidTarget(E.Range)))
                     {
-                        if (minion.IsValidTarget())
-                        {
-                            E.Cast();
-                        }
+                        E.Cast();
+                        return;
+                    }
+                    if (Player.ManaPercent <= laneE) return;
+                }
+            }
+        }
+
+        private static void Jungle()
+        {
+            var allMinions = MinionManager.GetMinions(
+                ObjectManager.Player.ServerPosition,
+                Q.Range,
+                MinionTypes.All,
+                MinionTeam.Neutral,
+                MinionOrderTypes.MaxHealth);
+            if (Menu.Item("jungleclearE").GetValue<bool>() && E.IsReady())
+            {
+                foreach (var minion in allMinions)
+                {
+                    if (minion.IsValidTarget())
+                    {
+                        E.Cast();
                     }
                 }
             }
