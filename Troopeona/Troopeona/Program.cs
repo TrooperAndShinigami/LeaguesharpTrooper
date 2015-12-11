@@ -149,10 +149,6 @@ namespace Troopeona
             {
                 E.Cast(m);
             }
-            if (useR && R.IsReady() && !E.IsReady())
-            {
-                R.CastOnBestTarget();
-            }
         }
 
         private static void Harass()
@@ -179,6 +175,9 @@ namespace Troopeona
                 if (Menu.Item("useQ").GetValue<bool>() && Q.IsReady());
                 Q.CastOnBestTarget();
             }
+                if (Menu.Item("useR").GetValue<bool>() && R.IsReady() && !E.IsReady()) ;
+                R.CastOnBestTarget();
+
         }
 
         private static void Lane()
