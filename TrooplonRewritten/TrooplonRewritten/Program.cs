@@ -192,13 +192,13 @@ namespace TrooplonRewritten
                 {
                     E.CastOnBestTarget();
                 }
-                if (useR && R.IsReady() && !W.IsReady())
-                {
-                    R.CastOnBestTarget();
-                }
-                if (useW && W.IsReady() && !Q.IsReady())
+                if (useW && W.IsReady() && !Q.IsReady())  //W
                 {
                     W.CastOnBestTarget();
+                }
+                if (useR && R.IsReady() && !W.IsReady()) //Q
+                {
+                    R.CastOnBestTarget();
                 }
 
             }
