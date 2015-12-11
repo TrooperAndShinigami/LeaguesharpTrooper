@@ -92,7 +92,9 @@ namespace Troopeona
 
             Game.OnUpdate += OnUpdate;
             Orbwalking.AfterAttack += AfterAa;
-            Game.PrintChat("Leona , featuring Troopeona , whitch is like the worst name ever");
+            Game.PrintChat(
+    "<font color='#00CC83'>trooperhdx:</font> <font color='#B6250B'>" + Player.ChampionName
+    + " Loaded<font color='#00B4D2'> Dont forget to Upvote this Assembly on the Assembly Database! </font>");
         }
 
         private static void OnUpdate(EventArgs args)
