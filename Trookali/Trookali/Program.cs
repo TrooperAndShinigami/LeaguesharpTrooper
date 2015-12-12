@@ -156,7 +156,7 @@ namespace Trookali
 
         private static void Combo()
         {
-            var x = TargetSelector.GetTarget(E.Range, TargetSelector.DamageType.Magical);
+            var x = TargetSelector.GetTarget(R.Range, TargetSelector.DamageType.Magical);
             var useE = (Menu.Item("useE").GetValue<bool>());
             var useQ = (Menu.Item("useQ").GetValue<bool>());
             var useW = (Menu.Item("useW").GetValue<bool>());
