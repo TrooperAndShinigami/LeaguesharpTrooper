@@ -1,0 +1,12 @@
+C:\Users\Carsten1\Documents\GitHub\LeaguesharpTrooper\Troopeona\Troopeona\bin\Release\Troopeona.exe.config
+C:\Users\Carsten1\Documents\GitHub\LeaguesharpTrooper\Troopeona\Troopeona\bin\Release\Troopeona.exe
+C:\Users\Carsten1\Documents\GitHub\LeaguesharpTrooper\Troopeona\Troopeona\bin\Release\Troopeona.pdb
+C:\Users\Carsten1\Documents\GitHub\LeaguesharpTrooper\Troopeona\Troopeona\bin\Release\LeagueSharp.Common.dll
+C:\Users\Carsten1\Documents\GitHub\LeaguesharpTrooper\Troopeona\Troopeona\bin\Release\LeagueSharp.dll
+C:\Users\Carsten1\Documents\GitHub\LeaguesharpTrooper\Troopeona\Troopeona\bin\Release\SharpDX.dll
+C:\Users\Carsten1\Documents\GitHub\LeaguesharpTrooper\Troopeona\Troopeona\bin\Release\SharpDX.Direct3D9.dll
+C:\Users\Carsten1\Documents\GitHub\LeaguesharpTrooper\Troopeona\Troopeona\bin\Release\clipper_library.dll
+C:\Users\Carsten1\Documents\GitHub\LeaguesharpTrooper\Troopeona\Troopeona\bin\Release\LeagueSharp.Sandbox.dll
+C:\Users\Carsten1\Documents\GitHub\LeaguesharpTrooper\Troopeona\Troopeona\obj\Debug\Troopeona.csprojResolveAssemblyReference.cache
+C:\Users\Carsten1\Documents\GitHub\LeaguesharpTrooper\Troopeona\Troopeona\obj\Debug\Troopeona.exe
+C:\Users\Carsten1\Documents\GitHub\LeaguesharpTrooper\Troopeona\Troopeona\obj\Debug\Troopeona.pdb

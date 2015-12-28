@@ -78,6 +78,7 @@ namespace Troopeona
             Menu.AddSubMenu(harass);
             harass.AddItem(new MenuItem("harassQ", "Use Q to harass").SetValue(true));
             harass.AddItem(new MenuItem("harassW", "Use W to harass").SetValue(true));
+            harass.AddItem(new MenuItem("harassE", "Use E to harass").SetValue(true));
             //LaneClear Menu
             Menu.AddSubMenu(new Menu("laneclear", "laneclear"));
             Menu.SubMenu("laneclear").AddItem(new MenuItem("jungleclearQ", "use Q to Laneclear").SetValue(true));
@@ -157,16 +158,23 @@ namespace Troopeona
         {
             var o = TargetSelector.GetTarget(W.Range, TargetSelector.DamageType.Magical);
             if (Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Mixed)
+                if (Menu.Item("harassE").GetValue<bool>())
+                {
+                    if (Player.Distance(o.Position) > 875 && (E.IsReady()))
+                    {
+                        E.Cast(o);
+                    }
+                }
+            if (Menu.Item("harassW").GetValue<bool>())
+            {
+                W.Cast();
+            }
             if (Menu.Item("harassQ").GetValue<bool>())
             {
                 if (Player.Distance(o.Position) > 125 && (Q.IsReady()))
                 {
                     Q.Cast(o);
                 }
-            }
-            if (Menu.Item("harassW").GetValue<bool>())
-            {
-                W.Cast();
             }
         }
 
