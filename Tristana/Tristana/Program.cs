@@ -272,16 +272,18 @@ namespace Tristana
             {
                 foreach (var minion in allMinions)
                 {
-                    if (Menu.Item("laneE").GetValue<bool>() && E.IsReady() && ETris) if (minions.Count <= 3);
-                    if (minion.IsValidTarget())
-                    {
-                        E.CastOnUnit(minion);
-                    }
-                    if (Menu.Item("laneQ").GetValue<bool>() && Q.IsReady())
+                    if (Menu.Item("laneE").GetValue<bool>() && E.IsReady()) if (minions.Count <= 3) ;
                     {
                         if (minion.IsValidTarget())
                         {
-                            Q.CastOnUnit(minion);
+                            E.CastOnUnit(minion);
+                        }
+                        if (Menu.Item("laneQ").GetValue<bool>() && Q.IsReady())
+                        {
+                            if (minion.IsValidTarget())
+                            {
+                                Q.CastOnUnit(minion);
+                            }
                         }
                     }
                 }
