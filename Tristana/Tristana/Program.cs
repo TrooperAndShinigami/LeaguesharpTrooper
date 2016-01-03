@@ -269,10 +269,10 @@ namespace Tristana
         {
             var allMinions = MinionManager.GetMinions(ObjectManager.Player.ServerPosition, 290f);
             var minions = MinionManager.GetMinions(ObjectManager.Player.ServerPosition, Q.Range);
-            if (Menu.Item("laneE").GetValue<bool>() && E.IsReady() && ETris) if (minions.Count <= 3) return;
             {
                 foreach (var minion in allMinions)
                 {
+                    if (Menu.Item("laneE").GetValue<bool>() && E.IsReady() && ETris) if (minions.Count <= 3);
                     if (minion.IsValidTarget())
                     {
                         E.CastOnUnit(minion);
