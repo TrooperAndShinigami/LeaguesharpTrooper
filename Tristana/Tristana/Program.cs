@@ -89,6 +89,8 @@ namespace Tristana
             Menu.SubMenu("Misc")
                 .AddItem(
                     new MenuItem("Flee", "Flee Key").SetValue(new KeyBind("A".ToCharArray()[0], KeyBindType.Press)));
+            Menu.SubMenu("Misc").AddItem(new MenuItem("RGap", "use R to gapclose").SetValue(true));
+            Menu.SubMenu("Misc").AddItem(new MenuItem("RInt", "use R to Interrupt").SetValue(true));
             Menu.SubMenu("Misc").AddItem(new MenuItem("WFlee", "Use W to Flee").SetValue(true));
             //Jungleclear
             Menu.AddSubMenu(new Menu("Jungleclear", "Jungleclear"));
@@ -107,11 +109,25 @@ namespace Tristana
             Menu.AddToMainMenu();
             OnDoCast();
             Drawing.OnDraw += OnDraw;
+            Interrupter2.OnInterruptableTarget += Interrupter2_OnInterruptableTarget;
+            AntiGapcloser.OnEnemyGapcloser += AntiGapcloser_OnEnemyGapcloser;
             Orbwalking.BeforeAttack += BeforeAA;
             Game.OnUpdate += OnUpdate;
             Game.PrintChat(
 "<font color='#00CC83'>trooperhdx:</font> <font color='#B6250B'>" + Player.ChampionName
 + " Loaded<font color='#00B4D2'> Dont forget to Upvote this Assembly on the Assembly Database! </font>");
+        }
+
+        private static void Interrupter2_OnInterruptableTarget(Obj_AI_Hero sender, Interrupter2.InterruptableTargetEventArgs args)
+        {
+            if (R.IsReady() && target.IsValidTarget(R.Range) && Menu.Item("RInt").GetValue<bool>())
+                R.CastOnUnit(target);
+        }
+
+        private static void AntiGapcloser_OnEnemyGapcloser(ActiveGapcloser gapcloser)
+        {
+            if (R.IsReady() && gapcloser.Sender.IsValidTarget(R.Range) && Menu.Item("RGap").GetValue<bool>())
+                R.CastOnUnit(gapcloser.Sender);
         }
 
         private static void BeforeAA(Orbwalking.BeforeAttackEventArgs args)
