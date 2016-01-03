@@ -278,12 +278,12 @@ namespace Tristana
                         {
                             E.CastOnUnit(minion);
                         }
-                        if (Menu.Item("laneQ").GetValue<bool>() && Q.IsReady())
+                    }
+                    if (Menu.Item("laneQ").GetValue<bool>() && Q.IsReady())
+                    {
+                        if (minion.IsValidTarget())
                         {
-                            if (minion.IsValidTarget())
-                            {
-                                Q.CastOnUnit(minion);
-                            }
+                            Q.CastOnUnit(minion);
                         }
                     }
                 }
