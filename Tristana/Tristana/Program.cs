@@ -109,7 +109,9 @@ namespace Tristana
             Drawing.OnDraw += OnDraw;
             Orbwalking.BeforeAttack += BeforeAA;
             Game.OnUpdate += OnUpdate;
-            System.Console.WriteLine("Tristan Loaded , enjoy Freelo");
+            Game.PrintChat(
+"<font color='#00CC83'>trooperhdx:</font> <font color='#B6250B'>" + Player.ChampionName
++ " Loaded<font color='#00B4D2'> Dont forget to Upvote this Assembly on the Assembly Database! </font>");
         }
 
         private static void BeforeAA(Orbwalking.BeforeAttackEventArgs args)
