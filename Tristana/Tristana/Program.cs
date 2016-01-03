@@ -272,7 +272,7 @@ namespace Tristana
             {
                 foreach (var minion in allMinions)
                 {
-                    if (Menu.Item("laneE").GetValue<bool>() && E.IsReady()) if (minions.Count <= 3) ;
+                    if (Menu.Item("laneE").GetValue<bool>() && E.IsReady())
                     {
                         if (minion.IsValidTarget())
                         {
