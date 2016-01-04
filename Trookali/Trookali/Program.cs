@@ -233,7 +233,6 @@ namespace Trookali
                             && minion.IsValidTarget(E.Range)))
                     {
                         E.Cast();
-                        return;
                     }
                     if (Player.ManaPercent <= laneE) return;
                 }
