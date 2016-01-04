@@ -30,8 +30,7 @@ namespace Tristana
         //Spells
         public static List<Spell> SpellList = new List<Spell>();
 
-        private static bool ETris => Player.HasBuff("Tristanae");
-
+        private static bool ETris => Player.HasBuff("Tristanaecharge");
 
         public static Spell Q, W, E, R;
 
@@ -51,7 +50,7 @@ namespace Tristana
         {
             if (Player.ChampionName != "Tristana") return;
 
-            Q = new Spell(SpellSlot.Q, 700f);
+            Q = new Spell(SpellSlot.Q);
             W = new Spell(SpellSlot.W, 875f);
             W.SetSkillshot(0.6f, 875f, float.MaxValue, false, SkillshotType.SkillshotLine);
             E = new Spell(SpellSlot.E, 700f);
@@ -66,6 +65,8 @@ namespace Tristana
             spellMenu.AddItem(new MenuItem("comQ", "Use Q").SetValue(true));
             spellMenu.AddItem(new MenuItem("comW", "Use W").SetValue(true));
             spellMenu.AddItem(new MenuItem("comE", "Use E").SetValue(true));
+            //spellMenu.AddItem(new MenuItem("comR", "Use R").SetValue(true));
+            //spellMenu.AddItem(new MenuItem("comE_R", "Ult if E explode will kill enemy").SetValue(true));
             //Harass Menu
             Menu.AddSubMenu(new Menu("Harass", "Harass"));
             Menu.SubMenu("Harass").AddItem(new MenuItem("harassE", "use E to Harass").SetValue(true));
@@ -76,6 +77,7 @@ namespace Tristana
             Menu.SubMenu("Laneclear").AddItem(new MenuItem("laneE", "use E to Laneclear").SetValue(true));
             Menu.SubMenu("Laneclear").AddItem(new MenuItem("laneQ", "use Q to Laneclear").SetValue(true));
             Menu.SubMenu("Laneclear").AddItem(new MenuItem("towerE", "use E to push turrets").SetValue(true));
+            Menu.SubMenu("Laneclear").AddItem(new MenuItem("towerQ", "use Q to push turrets").SetValue(true));
             //Drawings
             Menu.AddSubMenu(new Menu("Drawings", "Drawings"));
             Menu.SubMenu("Drawings").AddItem(new MenuItem("Draw_Disabled", "Disable all Drawings").SetValue(false));
@@ -85,7 +87,7 @@ namespace Tristana
             Menu.SubMenu("Drawings").AddItem(new MenuItem("Rdraw", "Draw R Range").SetValue(true));
             //Misc
             Menu.AddSubMenu(new Menu("Misc", "Misc"));
-            Menu.SubMenu("Misc").AddItem(new MenuItem("useRks", "use R to Ks").SetValue(true));
+            Menu.SubMenu("Misc").AddItem(new MenuItem("useRks", "use R to Ks / Kill").SetValue(true));
             Menu.SubMenu("Misc")
                 .AddItem(
                     new MenuItem("Flee", "Flee Key").SetValue(new KeyBind("A".ToCharArray()[0], KeyBindType.Press)));
@@ -109,13 +111,32 @@ namespace Tristana
             Menu.AddToMainMenu();
             OnDoCast();
             Drawing.OnDraw += OnDraw;
+            R_E_EXPLODE();
             Interrupter2.OnInterruptableTarget += Interrupter2_OnInterruptableTarget;
             AntiGapcloser.OnEnemyGapcloser += AntiGapcloser_OnEnemyGapcloser;
             Orbwalking.BeforeAttack += BeforeAA;
+            Orbwalking.OnAttack += OnAa;
             Game.OnUpdate += OnUpdate;
             Game.PrintChat(
 "<font color='#00CC83'>trooperhdx:</font> <font color='#B6250B'>" + Player.ChampionName
 + " Loaded<font color='#00B4D2'> Dont forget to Upvote this Assembly on the Assembly Database! </font>");
+        }
+
+        private static void R_E_EXPLODE()
+        {
+            //Coming Soon
+        }
+
+        private static void OnAa(AttackableUnit unit, AttackableUnit attackableUnit)
+        {
+            var x = TargetSelector.GetTarget(Q.Range, TargetSelector.DamageType.Magical);
+            {
+                if (Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Combo)
+                {
+                    if (Menu.Item("comQ").GetValue<bool>() && Q.IsReady())
+                        Q.CastOnBestTarget();
+                }
+            }
         }
 
         private static void Interrupter2_OnInterruptableTarget(Obj_AI_Hero sender, Interrupter2.InterruptableTargetEventArgs args)
@@ -142,6 +163,13 @@ namespace Tristana
                         if (((Obj_AI_Turret)args.Target).Health >= Player.TotalAttackDamage * 3)
                         {
                             E.CastOnUnit(unit);
+                        }
+                        if (Menu.Item("towerQ").GetValue<bool>())
+                        {
+                            if (((Obj_AI_Turret)args.Target).Health >= Player.TotalAttackDamage * 1)
+                            {
+                                Q.CastOnUnit(unit);
+                            }
                         }
                     }
                 }
@@ -206,9 +234,8 @@ namespace Tristana
 
         private static void Combo()
         {
-            var useE = (Menu.Item("comQ").GetValue<bool>());
-            var useQ = (Menu.Item("comW").GetValue<bool>());
-            var useW = (Menu.Item("comE").GetValue<bool>());
+            var useQ = (Menu.Item("comQ").GetValue<bool>());
+            var useE = (Menu.Item("comE").GetValue<bool>());
             var useR = (Menu.Item("comR").GetValue<bool>());
 
             var x = TargetSelector.GetTarget(R.Range, TargetSelector.DamageType.Magical);
@@ -228,10 +255,6 @@ namespace Tristana
             //combo
             if (Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Combo)
             {
-                if (Player.Distance(x.Position) > 700 && (Q.IsReady()))
-                {
-                    Q.Cast();
-                }
             }
         }
 
@@ -264,7 +287,6 @@ namespace Tristana
                     {
                         if (Menu.Item("comE").GetValue<bool>() && E.IsReady()) E.CastOnBestTarget();
                     }
-                    if (Menu.Item("comQ").GetValue<bool>() && Q.IsReady()) Q.CastOnBestTarget();
                 }
                 if (Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Mixed)
                     if (Menu.Item("harassE").GetValue<bool>())
@@ -304,8 +326,8 @@ namespace Tristana
                     }
                 }
             }
-
         }
+    
 
         private static void Jungle()
         {
