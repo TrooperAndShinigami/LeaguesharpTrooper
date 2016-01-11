@@ -229,7 +229,7 @@ namespace Trookali
                         allMinions.Any(
                             minion =>
                             minion.IsValidTarget(E.Range)
-                            && minion.Health < 0.80 * Player.GetSpellDamage(minion, SpellSlot.E)
+                            && minion.Health < 0.90 * Player.GetSpellDamage(minion, SpellSlot.E)
                             && minion.IsValidTarget(E.Range)))
                     {
                         E.Cast();
