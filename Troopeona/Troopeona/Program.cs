@@ -146,11 +146,18 @@ namespace Troopeona
             //combo
             if (useW && E.IsReady() && W.IsReady())
             {
-            if (Player.Distance(m.Position) < E.Range) W.Cast();
+                if (Player.Distance(m.Position) < E.Range)
+                {
+                    W.Cast();
+                }
             }
             if (useE && E.IsReady())
             {
                 E.Cast(m);
+            }
+            if (useR && R.IsReady())
+            {
+                R.Cast(m);
             }
         }
 
@@ -182,11 +189,9 @@ namespace Troopeona
         {
             if (Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Combo)
             {
-                if (Menu.Item("useQ").GetValue<bool>() && Q.IsReady());
+                if (Menu.Item("useQ").GetValue<bool>() && Q.IsReady()) ;
                 Q.CastOnBestTarget();
             }
-                if (Menu.Item("useR").GetValue<bool>() && R.IsReady() && !E.IsReady()) ;
-                R.CastOnBestTarget();
 
         }
 
