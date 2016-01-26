@@ -210,6 +210,7 @@ namespace Trookali
         {
             if (Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Combo)
             {
+                Obj_AI_Hero target = TargetSelector.GetTarget(300, TargetSelector.DamageType.Magical);
                 if (Menu.Item("useE").GetValue<bool>() && E.IsReady()) ;
                 E.Cast();
             }
