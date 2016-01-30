@@ -305,9 +305,9 @@ namespace Akali
             var laneE = Menu.Item("Laneclear Energy").GetValue<Slider>().Value;
             var allMinions = MinionManager.GetMinions(ObjectManager.Player.ServerPosition, 290f);
             var minions = MinionManager.GetMinions(Player.ServerPosition, E.Range);
-            if (minions.Count <= 2) return;
+            if (minions.Count <= 1) return;
             {
-                if (E.IsReady() && Q.IsReady())
+                if (E.IsReady() && E.IsReady())
                 {
                     if (
                         allMinions.Any(
