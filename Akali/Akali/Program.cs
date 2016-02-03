@@ -71,7 +71,7 @@ namespace Akali
             //SpellMenu
             Menu spellMenu = Menu.AddSubMenu(new Menu("Combo", "Combo"));
             spellMenu.AddItem(new MenuItem("useQ", "Use Q").SetValue(true));
-            //spellMenu.AddItem(new MenuItem("useW", "Use W").SetValue(true));
+            spellMenu.AddItem(new MenuItem("useW", "Use W").SetValue(true));
             spellMenu.AddItem(new MenuItem("useE", "Use E").SetValue(true));
             spellMenu.AddItem(new MenuItem("useR", "Use R").SetValue(true));
             //Harass Menu
@@ -152,6 +152,11 @@ namespace Akali
             if (Q.IsReady())
             {
                 damage += Player.GetSpellDamage(target, SpellSlot.Q);
+            }
+
+            if (W.IsReady())
+            {
+                damage += Player.GetSpellDamage(target, SpellSlot.W);
             }
 
             if (E.IsReady())
