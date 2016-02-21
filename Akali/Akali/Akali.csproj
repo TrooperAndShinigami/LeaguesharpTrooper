@@ -34,19 +34,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="LeagueSharp">
-      <HintPath>F:\fallout 4\LeagueSharp\System\LeagueSharp.dll</HintPath>
+      <HintPath>F:\dinterlolz\LeagueSharp\System\LeagueSharp.dll</HintPath>
     </Reference>
     <Reference Include="LeagueSharp.Common">
-      <HintPath>F:\fallout 4\LeagueSharp\System\LeagueSharp.Common.dll</HintPath>
+      <HintPath>F:\dinterlolz\LeagueSharp\System\LeagueSharp.Common.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX">
-      <HintPath>F:\fallout 4\LeagueSharp\System\SharpDX.dll</HintPath>
+      <HintPath>F:\dinterlolz\LeagueSharp\System\SharpDX.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX.Direct3D9">
-      <HintPath>F:\fallout 4\LeagueSharp\System\SharpDX.Direct3D9.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpDX.XInput">
-      <HintPath>F:\fallout 4\LeagueSharp\System\SharpDX.XInput.dll</HintPath>
+      <HintPath>F:\dinterlolz\LeagueSharp\System\SharpDX.Direct3D9.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

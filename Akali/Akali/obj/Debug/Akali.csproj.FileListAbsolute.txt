@@ -1,2 +1,13 @@
 c:\users\carsten1\documents\visual studio 2015\Projects\Akali\Akali\bin\Debug\Akali.exe.config
 C:\Users\Carsten1\Documents\GitHub\LeaguesharpTrooper\Akali\Akali\bin\Debug\Akali.exe.config
+C:\Users\Carsten1\Documents\GitHub\LeaguesharpTrooper\Akali\Akali\bin\Debug\Akali.exe
+C:\Users\Carsten1\Documents\GitHub\LeaguesharpTrooper\Akali\Akali\bin\Debug\Akali.pdb
+C:\Users\Carsten1\Documents\GitHub\LeaguesharpTrooper\Akali\Akali\bin\Debug\LeagueSharp.Common.dll
+C:\Users\Carsten1\Documents\GitHub\LeaguesharpTrooper\Akali\Akali\bin\Debug\LeagueSharp.dll
+C:\Users\Carsten1\Documents\GitHub\LeaguesharpTrooper\Akali\Akali\bin\Debug\SharpDX.Direct3D9.dll
+C:\Users\Carsten1\Documents\GitHub\LeaguesharpTrooper\Akali\Akali\bin\Debug\SharpDX.dll
+C:\Users\Carsten1\Documents\GitHub\LeaguesharpTrooper\Akali\Akali\bin\Debug\clipper_library.dll
+C:\Users\Carsten1\Documents\GitHub\LeaguesharpTrooper\Akali\Akali\bin\Debug\LeagueSharp.Sandbox.dll
+C:\Users\Carsten1\Documents\GitHub\LeaguesharpTrooper\Akali\Akali\obj\Debug\Akali.csprojResolveAssemblyReference.cache
+C:\Users\Carsten1\Documents\GitHub\LeaguesharpTrooper\Akali\Akali\obj\Debug\Akali.exe
+C:\Users\Carsten1\Documents\GitHub\LeaguesharpTrooper\Akali\Akali\obj\Debug\Akali.pdb

@@ -77,7 +77,7 @@ namespace Akali
             //Harass Menu
             var harass = new Menu("Harass", "Harass");
             Menu.AddSubMenu(harass);
-            harass.AddItem(new MenuItem("harassQ", "Use Q to harass").SetValue(true));
+            harass.AddItem(new MenuItem("hQ", "Use Q to harass").SetValue(true));
             //LaneClear Menu
             Menu.AddSubMenu(new Menu("Laneclear", "laneclear"));
             Menu.SubMenu("laneclear").AddItem(new MenuItem("laneE", "use E to Laneclear").SetValue(true));
@@ -277,11 +277,11 @@ namespace Akali
 
         private static void Harass()
         {
-            var l = TargetSelector.GetTarget(W.Range, TargetSelector.DamageType.Magical);
+            Obj_AI_Hero target = TargetSelector.GetTarget(Q.Range, TargetSelector.DamageType.Magical);
             if (Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Mixed)
-                if (Menu.Item("harassQ").GetValue<bool>())
+                if (Menu.Item("hQ").GetValue<bool>())
                 {
-                    if (Player.Distance(l.Position) > 125 && (Q.IsReady()))
+                    if (Player.Distance(target.Position) > 400 && (Q.IsReady()))
                     {
                         Q.CastOnBestTarget();
                     }
